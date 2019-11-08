@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:31:08 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/07 23:24:16 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/08 00:53:45 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	del_optlst(t_opts **lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
-		free(&tmp->opt);
 		free(tmp);
 	}
 	free(lst);
