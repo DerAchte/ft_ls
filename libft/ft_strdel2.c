@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdel2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thdervil <thdervil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 16:47:45 by thdervil          #+#    #+#             */
-/*   Updated: 2019/10/27 14:25:47 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/03 16:02:09 by thdervil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	ft_strdel2(char **as)
 {
 	int		i;
-	char	*tmp;
 
-	i = 0;
+	i = -1;
 	if (as)
 	{
-		while (as[i])
+		if (as[0])
 		{
-			tmp = as[i];
-			i++;
-			free(tmp);
-			tmp = NULL;
+			while (as[++i])
+			{
+				free(as[i]);
+				as[i] = NULL;
+			}
 		}
 		free(as);
 		as = NULL;

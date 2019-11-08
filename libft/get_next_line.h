@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thdervil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/16 18:37:10 by oel-ayad          #+#    #+#             */
-/*   Updated: 2019/10/31 14:51:06 by derachte         ###   ########.fr       */
+/*   Created: 2018/12/17 15:07:48 by thdervil          #+#    #+#             */
+/*   Updated: 2018/12/20 17:30:07 by thdervil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 50
+# define BUFF_SIZE 100
 
-# include <unistd.h>
-# include "libft.h"
-
-int		get_next_line(const int fd, char **line);
+int get_next_line(const int fd, char **line);
 
 #endif

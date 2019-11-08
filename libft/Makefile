@@ -6,13 +6,13 @@
 #    By: derachte <derachte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/12 14:10:04 by thdervil          #+#    #+#              #
-#    Updated: 2019/10/31 14:47:12 by derachte         ###   ########.fr        #
+#    Updated: 2019/11/05 01:28:16 by thdervil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc
-FLG = -Wall -Wextra -Werror
+FLG = -Wall -Wextra -Werror -ggdb
 
 SRC = ft_atoi.c\
 	  ft_bzero.c\
@@ -52,6 +52,7 @@ SRC = ft_atoi.c\
 	  ft_striter.c\
 	  ft_striteri.c\
 	  ft_strjoin.c\
+	  ft_strjoin_free.c\
 	  ft_strlcat.c\
 	  ft_strlen.c\
 	  ft_strmap.c\
@@ -84,7 +85,7 @@ SRC = ft_atoi.c\
 
 OBJ = $(SRC:.c=.o)
 
-HDR = libft.h
+HDR = libft
 
 all: $(NAME)
 

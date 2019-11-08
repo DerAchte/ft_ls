@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thdervil <thdervil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 16:03:00 by thdervil          #+#    #+#             */
-/*   Updated: 2019/10/31 14:49:04 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/05 01:29:35 by thdervil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_free(char *s1, char *s2, int flag);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
@@ -89,8 +90,8 @@ void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_count_words(char *str);
 int					ft_skipchar_countwords(const char *str, char c);
-int 				ft_cisin(char *str, char c);
-void 				ft_skipchar(char *str, char c);
-int 				get_next_line(const int fd, char **line);
+int					ft_cisin(char *str, char c);
+void				ft_skipchar(char *str, char c);
+int					get_next_line(const int fd, char **line);
 
 #endif
