@@ -18,7 +18,7 @@ char	*ft_strnew(size_t size)
 	size_t	i;
 
 	i = 0;
-	if ((result = (char*)malloc(sizeof(char) * size + 1)) == NULL)
+	if (!(result = (char*)malloc(sizeof(char) * size + 1)))
 		return (NULL);
 	while (i < size + 1)
 		result[i++] = 0;

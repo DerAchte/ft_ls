@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thdervil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: thdervil <thdervil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 15:34:41 by thdervil          #+#    #+#             */
-/*   Updated: 2018/11/24 17:39:53 by thdervil         ###   ########.fr       */
+/*   Updated: 2019/11/05 12:02:28 by thdervil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ static void	is_neg(int *nb, int *neg, int *size)
 char		*ft_itoa(int nb)
 {
 	char	*result;
-	int		i;
 	int		size;
 	int		neg;
 
 	neg = 0;
-	i = 0;
 	size = 0;
 	if (nb == -2147483648)
 		return (ft_strdup("-2147483648"));

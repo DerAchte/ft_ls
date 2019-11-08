@@ -6,7 +6,7 @@
 /*   By: thdervil <thdervil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 15:20:27 by thdervil          #+#    #+#             */
-/*   Updated: 2019/10/28 18:33:09 by thdervil         ###   ########.fr       */
+/*   Updated: 2019/11/05 12:03:03 by thdervil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ char		**ft_strsplit(char const *s, char c)
 
 	if (!s || !c || !(*s))
 		return (NULL);
-	if (!(r = (char**)malloc(sizeof(char*) * ft_skipchar_countwords(s, c) + 1)))
+	if (!(r = (char**)malloc(sizeof(char*) *
+		(ft_skipchar_countwords(s, c) + 1))))
 		return (NULL);
-	i = 0;
+	i = -1;
 	k = 0;
-	while (i < ft_skipchar_countwords(s, c))
+	while (++i < ft_skipchar_countwords(s, c))
 	{
 		j = 0;
 		while (s[k] == c)
 			k++;
-		if (!(r[i] = ft_strnew(sizeof(char) * word(s, k, c))))
+		if (!(r[i] = ft_strnew(sizeof(char) * (word(s, k, c) + 1))))
 			return (NULL);
 		while (s[k] != c && s[k])
 			r[i][j++] = s[k++];
-		r[i++][j] = '\0';
 	}
 	r[i] = NULL;
 	return (r);
