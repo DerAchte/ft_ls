@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:38:47 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/07 20:42:41 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:37:18 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef	struct	s_files
 	struct s_files	*prev;
 	struct s_files	*next;
 }				t_files;
-
 
 typedef	struct 	s_opts
 {

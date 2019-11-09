@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:31:08 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/08 00:53:45 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:45:25 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,27 @@ t_opts	*init_optlist(char *poss)
 int		fill_optlist(char **av, t_opts *optlst)
 {
 	t_opts	*start;
+	int		nb_opt;
 
 	start = optlst;
+	nb_opt = 0;
 	if (!*av)
 		return (0);
 	while (*av && *av[0] == '-')
 	{
+		nb_opt++;
 		if (is_illegal(*av) < 0)
 			return (-1);
 		while (optlst)
 		{
 			if (ft_cisin(*av, optlst->opt))
-				optlst->on = 1;
+			optlst->on = 1;
 			optlst = optlst->next;
 		}
 		optlst = start;
 		av++;
 	}
-	return (0);
+	return (nb_opt);
 }
 
 // void	check_files(int ac, char **av, t_ls *ls)
@@ -103,35 +106,75 @@ void	del_optlst(t_opts **lst)
 	lst = NULL;
 }
 
+t_files		*init_filelst(char **av, t_files *link)
+{
+	t_files	*ret;
+
+	if (!av || !*av)
+		return (NULL);
+	if (!(ret = (t_files*)malloc(sizeof(t_files))))
+		return (NULL);
+	ret->path = ft_strdup(*av);
+	ret->prev = link;
+	ret->next = init_filelst(++av, ret);
+	return (ret);
+}
+
+void	del_filelst(t_files **lst)
+{
+	t_files *tmp;
+
+	while (*lst)
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp->path);
+		free(tmp);
+	}
+	free(lst);
+	lst = NULL;
+}
 
 void	clean(t_ls *lst)
 {
 	if (lst->opts)
 		del_optlst(&lst->opts);
+	if (lst->files)
+		del_filelst(&lst->files);
 }
 
 t_ls	*init_ls(int ac, char **av)
 {
 	t_ls	*ret;
+	int		nb_opts;
 
 	(void)ac;
 	if (!(ret = (t_ls*)malloc(sizeof(t_ls))))
 		return NULL;
 	ret->opts = init_optlist("lRart");
-	if (fill_optlist(++av, ret->opts) < 0)
+	if ((nb_opts = fill_optlist(++av, ret->opts)) < 0)
 	{
 		del_optlst(&ret->opts);
 		return (NULL);
 	}
-	ret->files = NULL;
+	av += nb_opts;
+	ret->files = init_filelst(av, NULL);
 	return (ret);
 }
 
 int		main(int ac, char **av)
 {
 	t_ls	*ls;
+	t_files *tmp;
 
 	ls = parse(ac, av);
+	tmp = ls->files;
+	while (ls->files)
+	{
+		printf("files: %s\n", ls->files->path);
+		ls->files = ls->files->next;
+	}
+	ls->files = tmp;
 	clean(ls);
 	while (1);
 }
