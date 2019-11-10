@@ -102,7 +102,6 @@ void	del_optlst(t_opts **lst)
 		*lst = (*lst)->next;
 		free(tmp);
 	}
-	free(lst);
 	lst = NULL;
 }
 
@@ -131,7 +130,6 @@ void	del_filelst(t_files **lst)
 		free(tmp->path);
 		free(tmp);
 	}
-	free(lst);
 	lst = NULL;
 }
 
@@ -151,6 +149,7 @@ t_ls	*init_ls(int ac, char **av)
 	(void)ac;
 	if (!(ret = (t_ls*)malloc(sizeof(t_ls))))
 		return NULL;
+	ret->error = 0;
 	ret->opts = init_optlist("lRart");
 	if ((nb_opts = fill_optlist(++av, ret->opts)) < 0)
 	{
