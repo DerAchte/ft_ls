@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:38:47 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/08 19:37:18 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/10 15:16:59 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef	struct 	s_opts
 
 typedef	struct	s_ls
 {
+	int		error;
 	t_opts	*opts;
 	t_files	*files;
 }				t_ls;

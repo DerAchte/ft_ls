@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:31:08 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/09 18:45:25 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/10 15:23:54 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ t_ls	*init_ls(int ac, char **av)
 	if ((nb_opts = fill_optlist(++av, ret->opts)) < 0)
 	{
 		del_optlst(&ret->opts);
+		ret->error = 1;
 		return (NULL);
 	}
 	av += nb_opts;
@@ -165,16 +166,10 @@ t_ls	*init_ls(int ac, char **av)
 int		main(int ac, char **av)
 {
 	t_ls	*ls;
-	t_files *tmp;
 
 	ls = parse(ac, av);
-	tmp = ls->files;
-	while (ls->files)
-	{
-		printf("files: %s\n", ls->files->path);
-		ls->files = ls->files->next;
-	}
-	ls->files = tmp;
+	if (ls->error)
+		exit (EXIT_FAILURE);
 	clean(ls);
 	while (1);
 }
