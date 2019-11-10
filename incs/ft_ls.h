@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:38:47 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/10 15:16:59 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/10 20:03:54 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <dirent.h>
+# include <errno.h>
 
 typedef	struct	s_files
 {

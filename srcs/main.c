@@ -6,7 +6,7 @@
 /*   By: derachte <derachte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:31:08 by derachte          #+#    #+#             */
-/*   Updated: 2019/11/10 15:23:54 by derachte         ###   ########.fr       */
+/*   Updated: 2019/11/10 21:46:51 by derachte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,55 @@ int		fill_optlist(char **av, t_opts *optlst)
 	return (nb_opt);
 }
 
-// void	check_files(int ac, char **av, t_ls *ls)
-// {
-// 	DIR				*o_dir;
-// 	struct dirent	*r_dir;
+int		del_1link(t_files **file_lst)
+{
+	t_files *cur_lnk;
+	int		is_beg;
 
+	is_beg = 0;
+	cur_lnk = (*file_lst);
+	free((*file_lst)->path);
+	free(*file_lst);
+	if ((*file_lst)->prev)
+	{
+		(*file_lst)->next->prev = (*file_lst)->prev;
+		(*file_lst)->prev->next = (*file_lst)->next;
+	}
+	else
+		is_beg = 1;
+	return (is_beg);
+}
 
-// }
+void	check_files(t_ls *ls)
+{
+	DIR				*o_dir;
+	t_files			*start;
+	int				decale;
+	// struct dirent	*r_dir;
+
+	decale = 0;
+	start = ls->files;
+	while (ls->files)
+	{
+		if (!(o_dir = opendir(ls->files->path)))
+		{
+			ft_putstr("ls : ");
+			perror(ls->files->path);
+			decale = del_1link(&ls->files);
+			ls->files = ls->files->next;
+			closedir(o_dir);
+			continue ;
+		}
+		closedir(o_dir);
+		ls->files = ls->files->next;
+	}
+	ls->files = decale == 0 ? start : start + 1;
+}
+
+void	command(t_ls *ls)
+{
+	check_files(ls);
+}
 
 t_ls	*parse(int ac, char **av)
 {
@@ -167,8 +209,14 @@ int		main(int ac, char **av)
 	t_ls	*ls;
 
 	ls = parse(ac, av);
+	command(ls);
 	if (ls->error)
 		exit (EXIT_FAILURE);
-	clean(ls);
-	while (1);
+	printf("PD\n");
+	while (ls->files)
+	{
+		printf(">> %s\n", ls->files->path);
+		ls->files = ls->files->next;
+	}
+	// clean(ls);
 }
