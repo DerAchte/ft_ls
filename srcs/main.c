@@ -77,47 +77,61 @@ int		fill_optlist(char **av, t_opts *optlst)
 
 int		del_1link(t_files **file_lst)
 {
-	t_files *cur_lnk;
-	int		is_beg;
+	int		decale;
+	t_files		*tmp;
 
-	is_beg = 0;
-	cur_lnk = (*file_lst);
-	free((*file_lst)->path);
-	free(*file_lst);
-	if ((*file_lst)->prev)
+	decale = 0;
+	tmp = *file_lst;
+	*file_lst = (*file_lst)->next;
+	if (tmp->prev)
 	{
-		(*file_lst)->next->prev = (*file_lst)->prev;
-		(*file_lst)->prev->next = (*file_lst)->next;
+		if (tmp->next)
+		{
+			tmp->prev->next = tmp->next;
+			tmp->next->prev = tmp->prev;
+			free(tmp->path);
+			free(tmp);
+			tmp = NULL;
+			return (decale);
+		}
+		free(tmp->path);
+		free(tmp);
+		tmp = NULL;
 	}
 	else
-		is_beg = 1;
-	return (is_beg);
+	{
+		file_lst++;
+		free(tmp->path);
+		free(tmp);
+		tmp = NULL;
+		decale = 1;
+	}
+	return (decale);
 }
 
 void	check_files(t_ls *ls)
 {
-	DIR				*o_dir;
-	t_files			*start;
-	int				decale;
+	DIR			*o_dir;
+	t_files			**start;
+	int			decale;
 	// struct dirent	*r_dir;
 
 	decale = 0;
-	start = ls->files;
+	start = &ls->files;
 	while (ls->files)
 	{
 		if (!(o_dir = opendir(ls->files->path)))
 		{
 			ft_putstr("ls : ");
 			perror(ls->files->path);
-			decale = del_1link(&ls->files);
-			ls->files = ls->files->next;
+			decale += del_1link(&ls->files);
 			closedir(o_dir);
 			continue ;
 		}
-		closedir(o_dir);
 		ls->files = ls->files->next;
+		closedir(o_dir);
 	}
-	ls->files = decale == 0 ? start : start + 1;
+	ls->files = *start + decale;
 }
 
 void	command(t_ls *ls)
@@ -181,6 +195,7 @@ void	clean(t_ls *lst)
 		del_optlst(&lst->opts);
 	if (lst->files)
 		del_filelst(&lst->files);
+	free(lst);
 }
 
 t_ls	*init_ls(int ac, char **av)
@@ -212,11 +227,10 @@ int		main(int ac, char **av)
 	command(ls);
 	if (ls->error)
 		exit (EXIT_FAILURE);
-	printf("PD\n");
-	while (ls->files)
+/*	while (ls->files)
 	{
 		printf(">> %s\n", ls->files->path);
 		ls->files = ls->files->next;
-	}
-	// clean(ls);
+	}*/
+	clean(ls);
 }
